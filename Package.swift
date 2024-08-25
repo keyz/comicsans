@@ -9,7 +9,7 @@ let package = Package(
     ],
     products: [
         .library(name: "ComicSans", targets: ["ComicSans"]),
-        .executable(name: "ComicSansCLI", targets: ["ComicSansCLI"]),
+        .executable(name: "comicsans", targets: ["CommandLineTool"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.5.0"),
@@ -17,7 +17,7 @@ let package = Package(
     targets: [
         .target(name: "ComicSans"),
         .executableTarget(
-            name: "ComicSansCLI",
+            name: "CommandLineTool",
             dependencies: [
                 "ComicSans",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),

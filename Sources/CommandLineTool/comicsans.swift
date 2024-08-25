@@ -36,10 +36,12 @@ struct comicsans: ParsableCommand {
             baseDirectory: .currentDirectory()
         )
 
-        if let pngData = result.pngRepresentation() {
-            try pngData.write(to: targetPath, options: .atomic)
-            print("File generated: \(targetPath.path(percentEncoded: false))")
+        guard let pngData = result.pngRepresentation() else {
+            throw ExitCode.failure
         }
+
+        try pngData.write(to: targetPath, options: .atomic)
+        print("File generated: ./\(targetPath.lastPathComponent)")
     }
 
     private func uniqueFilePath(basename: String, fileExtension: String, baseDirectory: URL) -> URL {

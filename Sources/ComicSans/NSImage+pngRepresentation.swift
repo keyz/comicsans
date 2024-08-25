@@ -1,6 +1,6 @@
 import AppKit
 
-extension NSImage {
+public extension NSImage {
     var pngRepresentation: Data? {
         guard let tiffData = tiffRepresentation,
               let bitmapRep = NSBitmapImageRep(data: tiffData)

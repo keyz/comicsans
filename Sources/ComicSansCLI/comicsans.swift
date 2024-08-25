@@ -1,4 +1,5 @@
 import ArgumentParser
+import ComicSans
 import SwiftUI
 
 @main

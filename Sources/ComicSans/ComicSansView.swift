@@ -1,13 +1,21 @@
 import SwiftUI
 
-struct ComicSansView: View {
+public struct ComicSansView: View {
     var text: String
     var padding: Int
     var horizontalAlignment: HorizontalAlignmentOption
     var verticalAlignment: VerticalAlignmentOption
     var debug: Bool
 
-    var body: some View {
+    public init(text: String, padding: Int, horizontalAlignment: HorizontalAlignmentOption, verticalAlignment: VerticalAlignmentOption, debug: Bool) {
+        self.text = text
+        self.padding = padding
+        self.horizontalAlignment = horizontalAlignment
+        self.verticalAlignment = verticalAlignment
+        self.debug = debug
+    }
+
+    public var body: some View {
         VStack {
             if verticalAlignment == .bottom {
                 Spacer()

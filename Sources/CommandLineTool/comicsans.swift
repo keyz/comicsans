@@ -29,19 +29,29 @@ struct comicsans: ParsableCommand {
             verticalAlignment: vertical
         )
 
-        let targetName = "\(result.emojiName() ?? "unknown").png"
-
-        let targetPath = URL(
-            filePath: targetName,
-            directoryHint: .inferFromPath,
-            relativeTo: .currentDirectory()
+        let targetPath = uniqueFilePath(
+            basename: result.emojiName() ?? "unknown",
+            fileExtension: "png",
+            baseDirectory: .currentDirectory()
         )
-        
+
         print("-> \(targetPath.absoluteString)")
 
         if let pngData = result.pngRepresentation() {
             try pngData.write(to: targetPath, options: .atomic)
         }
+    }
+
+    private func uniqueFilePath(basename: String, fileExtension: String, baseDirectory: URL) -> URL {
+        var attempt = 0
+        var candidate = baseDirectory.appendingPathComponent("\(basename).\(fileExtension)")
+
+        while FileManager.default.fileExists(atPath: candidate.path) {
+            attempt += 1
+            candidate = baseDirectory.appendingPathComponent("\(basename) (\(attempt)).\(fileExtension)")
+        }
+
+        return candidate
     }
 }
 

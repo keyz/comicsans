@@ -22,20 +22,20 @@ struct comicsans: ParsableCommand {
     @MainActor mutating func run() throws {
         print("Padding: \(padding), horizontal: \(horizontal), vertical: \(vertical)")
 
-        let resultView = ComicSansView(
+        let result = ComicSans(
             text: "TODO",
             padding: padding,
             horizontalAlignment: horizontal,
-            verticalAlignment: vertical,
-            debug: false
+            verticalAlignment: vertical
         )
 
-        let renderer = ImageRenderer(content: resultView)
-        renderer.scale = 2.0 // TODO: should this be higher?
+        let targetPath = URL(
+            filePath: "\(result.emojiName()).png",
+            directoryHint: .inferFromPath,
+            relativeTo: .currentDirectory()
+        )
 
-        let targetPath = URL(filePath: "TODO.png", directoryHint: .inferFromPath, relativeTo: .currentDirectory())
-
-        if let pngData = renderer.nsImage?.pngRepresentation {
+        if let pngData = result.pngRepresentation() {
             try pngData.write(to: targetPath, options: .atomic)
         }
     }

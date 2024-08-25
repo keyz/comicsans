@@ -1,13 +1,19 @@
 import SwiftUI
 
 public struct ComicSansView: View {
-    var text: String
-    var padding: Int
-    var horizontalAlignment: HorizontalAlignmentOption
-    var verticalAlignment: VerticalAlignmentOption
-    var debug: Bool
+    let text: String
+    let padding: Int
+    let horizontalAlignment: HorizontalAlignmentOption
+    let verticalAlignment: VerticalAlignmentOption
+    let debug: Bool
 
-    public init(text: String, padding: Int, horizontalAlignment: HorizontalAlignmentOption, verticalAlignment: VerticalAlignmentOption, debug: Bool) {
+    public init(
+        text: String,
+        padding: Int,
+        horizontalAlignment: HorizontalAlignmentOption,
+        verticalAlignment: VerticalAlignmentOption,
+        debug: Bool
+    ) {
         self.text = text
         self.padding = padding
         self.horizontalAlignment = horizontalAlignment

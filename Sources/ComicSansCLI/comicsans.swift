@@ -29,11 +29,15 @@ struct comicsans: ParsableCommand {
             verticalAlignment: vertical
         )
 
+        let targetName = "\(result.emojiName() ?? "unknown").png"
+
         let targetPath = URL(
-            filePath: "\(result.emojiName()).png",
+            filePath: targetName,
             directoryHint: .inferFromPath,
             relativeTo: .currentDirectory()
         )
+        
+        print("-> \(targetPath.absoluteString)")
 
         if let pngData = result.pngRepresentation() {
             try pngData.write(to: targetPath, options: .atomic)

@@ -22,19 +22,19 @@ class EmojiNameTests: XCTestCase {
 
     func testUnknownCharacterHandling() {
         let input = "🙂"
-        let expected = "unknown"
+        let expected: String? = nil
         XCTAssertEqual(ComicSans(input).emojiName(), expected)
     }
 
     func testEmptyString() {
         let input = ""
-        let expected = "unknown"
+        let expected: String? = nil
         XCTAssertEqual(ComicSans(input).emojiName(), expected)
     }
 
     func testWhitespaceOnlyString() {
         let input = "   \n  "
-        let expected = "unknown"
+        let expected: String? = nil
         XCTAssertEqual(ComicSans(input).emojiName(), expected)
     }
 
@@ -69,8 +69,8 @@ class EmojiNameTests: XCTestCase {
     }
 
     func testSpecialCharactersOnly() {
-        let input = "%^*()"
-        let expected = "unknown"
+        let input = "%^ *"
+        let expected: String? = nil
         XCTAssertEqual(ComicSans(input).emojiName(), expected)
     }
 
@@ -100,7 +100,7 @@ class EmojiNameTests: XCTestCase {
 
     func testParenthesesHandling() {
         let input = "Hello (world)"
-        let expected = "hello-world"
+        let expected = "hello-parenthesis-world-parenthesis"
         XCTAssertEqual(ComicSans(input).emojiName(), expected)
     }
 

@@ -21,7 +21,7 @@ public struct ComicSans {
         )
     }
     
-    public func emojiName() -> String {
+    public func emojiName() -> String? {
         let replacements: [(String, String)] = [
             ("...", " ellipsis "),
             ("…", " ellipsis "),
@@ -40,6 +40,8 @@ public struct ComicSans {
             ("@", " at "),
             ("&", " and "),
             ("#", " hashtag "),
+            ("(", " parenthesis "),
+            (")", " parenthesis "),
             ("\n", " ")
         ]
         
@@ -65,7 +67,7 @@ public struct ComicSans {
             .filter { !$0.isEmpty }
             .joined(separator: "-")
         
-        return result.isEmpty ? "unknown" : result
+        return result.isEmpty ? nil : result
     }
     
     @MainActor public func pngRepresentation(scale: Int = 2) -> Data? {

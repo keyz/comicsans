@@ -40,3 +40,7 @@ struct comicsans: ParsableCommand {
         }
     }
 }
+
+extension HorizontalAlignmentOption: ExpressibleByArgument {}
+
+extension VerticalAlignmentOption: ExpressibleByArgument {}

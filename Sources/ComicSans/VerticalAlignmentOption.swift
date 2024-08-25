@@ -1,6 +1,4 @@
-import ArgumentParser
-
-public enum VerticalAlignmentOption: String, CaseIterable, ExpressibleByArgument {
+public enum VerticalAlignmentOption: String, CaseIterable {
     case top
     case center
     case bottom

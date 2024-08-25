@@ -1,7 +1,6 @@
-import ArgumentParser
 import SwiftUI
 
-public enum HorizontalAlignmentOption: String, CaseIterable, ExpressibleByArgument {
+public enum HorizontalAlignmentOption: String, CaseIterable {
     case leading
     case center
     case trailing

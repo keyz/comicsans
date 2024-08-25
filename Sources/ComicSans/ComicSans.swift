@@ -6,10 +6,10 @@ public struct ComicSans {
     public let view: ComicSansView
     
     public init(
-        text: String,
-        padding: Int,
-        horizontalAlignment: HorizontalAlignmentOption,
-        verticalAlignment: VerticalAlignmentOption
+        _ text: String,
+        padding: Int = 4,
+        horizontalAlignment: HorizontalAlignmentOption = .leading,
+        verticalAlignment: VerticalAlignmentOption = .center
     ) {
         self.text = text
         self.view = ComicSansView(
@@ -35,6 +35,11 @@ public struct ComicSans {
             ("–", " en dash "),
             ("—", " em dash "),
             ("/", " slash "),
+            ("\\", " backslash "),
+            ("$", " dollar sign "),
+            ("@", " at "),
+            ("&", " and "),
+            ("#", " hashtag "),
             ("\n", " ")
         ]
         
@@ -43,22 +48,24 @@ public struct ComicSans {
             temp = temp.replacingOccurrences(of: pattern, with: replacement)
         }
         
-        var isQuote = true
+        var isOpeningQuote = true
         temp = temp.reduce(into: "") { result, char in
             if char == "\"" {
-                result += isQuote ? " quote " : " unquote "
-                isQuote.toggle()
+                result += isOpeningQuote ? " quote " : " unquote "
+                isOpeningQuote.toggle()
             } else {
                 result.append(char)
             }
         }
         
-        let result = temp.components(separatedBy: .whitespaces)
+        let result = temp.components(separatedBy: .whitespacesAndNewlines)
             .filter { !$0.isEmpty }
             .map { $0.components(separatedBy: CharacterSet.alphanumerics.inverted).joined() }
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
             .joined(separator: "-")
         
-        return result.isEmpty && !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "unknown" : result
+        return result.isEmpty ? "unknown" : result
     }
     
     @MainActor public func pngRepresentation(scale: Int = 2) -> Data? {

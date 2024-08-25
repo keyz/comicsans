@@ -23,7 +23,7 @@ struct comicsans: ParsableCommand {
         print("Padding: \(padding), horizontal: \(horizontal), vertical: \(vertical)")
 
         let result = ComicSans(
-            text: "TODO",
+            "TODO",
             padding: padding,
             horizontalAlignment: horizontal,
             verticalAlignment: vertical

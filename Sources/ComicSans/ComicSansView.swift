@@ -37,6 +37,86 @@ public struct ComicSansView: View {
     }
 }
 
-#Preview {
-    ComicSansView(text: "Write something here and click generate", padding: 4, horizontalAlignment: .leading, verticalAlignment: .center, debug: false)
+private struct ContainerView: View {
+    let text: String
+    @State var padding: Int = 4
+    @State var horizontalAlignment: HorizontalAlignmentOption = .leading
+    @State var verticalAlignment: VerticalAlignmentOption = .center
+    @State var debug: Bool = false
+
+    var controlPanel: some View {
+        VStack {
+            Slider(value: $padding.double, in: 0 ... 24, step: 4) {
+                Text("Padding: \(padding, specifier: "%02d")").monospacedDigit()
+            } minimumValueLabel: {
+                Text("0")
+            } maximumValueLabel: {
+                Text("24")
+            }
+
+            Picker("Horizontal align", selection: $horizontalAlignment) {
+                Text("Leading").tag(HorizontalAlignmentOption.leading)
+                Text("Center").tag(HorizontalAlignmentOption.center)
+                Text("Trailing").tag(HorizontalAlignmentOption.trailing)
+            }
+            .pickerStyle(.segmented)
+
+            Picker("Vertical align", selection: $verticalAlignment) {
+                Text("Top").tag(VerticalAlignmentOption.top)
+                Text("Center").tag(VerticalAlignmentOption.center)
+                Text("Bottom").tag(VerticalAlignmentOption.bottom)
+            }
+            .pickerStyle(.segmented)
+
+            Toggle(isOn: $debug) {
+                Text("Debug")
+            }
+        }
+    }
+
+    var body: some View {
+        VStack {
+            VStack {
+                VStack {
+                    ComicSansView(
+                        text: text,
+                        padding: padding,
+                        horizontalAlignment: horizontalAlignment,
+                        verticalAlignment: verticalAlignment,
+                        debug: debug
+                    )
+                }
+                .padding(1)
+                .border(Color(red: 1, green: 0, blue: 1), width: 1)
+            }
+            .padding()
+
+            controlPanel
+                .frame(maxWidth: 320)
+                .padding()
+        }
+    }
+}
+
+private extension Int {
+    var double: Double {
+        get { Double(self) }
+        set { self = Int(newValue) }
+    }
+}
+
+#Preview("Default") {
+    ContainerView(text: "Write something here and click generate")
+}
+
+#Preview("lfg") {
+    ContainerView(text: "lfg")
+}
+
+#Preview("bottom padding 0") {
+    ContainerView(text: "j", padding: 0, verticalAlignment: .bottom)
+}
+
+#Preview("left padding 0") {
+    ContainerView(text: "jason", padding: 0)
 }

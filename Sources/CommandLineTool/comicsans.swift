@@ -4,6 +4,18 @@ import SwiftUI
 
 @main
 struct comicsans: ParsableCommand {
+    static var configuration = CommandConfiguration(
+        abstract: ":pink-slack-emoji:",
+        usage: """
+        comicsans <text>
+        comicsans 'Write something here and get a png back'
+        """,
+        discussion: """
+        Converts text to pink comic sans slack emoji.
+        """,
+        version: "1.0.0"
+    )
+
     @Argument(help: "Text to convert to pink comic sans slack emoji")
     var text: String // TODO: parse stdin if `text` is empty (make this argument optional)
 

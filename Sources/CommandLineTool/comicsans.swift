@@ -4,6 +4,9 @@ import SwiftUI
 
 @main
 struct comicsans: ParsableCommand {
+    @Argument(help: "Text to convert to pink comic sans slack emoji")
+    var text: String // TODO: parse stdin if `text` is empty (make this argument optional)
+
     @Option(name: [.short, .long], help: "Padding (values: 0, 4, 8, 12, 16, 20, 24)")
     var padding: Int = 4
 
@@ -20,10 +23,8 @@ struct comicsans: ParsableCommand {
     }
 
     @MainActor mutating func run() throws {
-        print("Padding: \(padding), horizontal: \(horizontal), vertical: \(vertical)")
-
         let result = ComicSans(
-            "TODO",
+            text,
             padding: padding,
             horizontalAlignment: horizontal,
             verticalAlignment: vertical
@@ -35,10 +36,9 @@ struct comicsans: ParsableCommand {
             baseDirectory: .currentDirectory()
         )
 
-        print("-> \(targetPath.absoluteString)")
-
         if let pngData = result.pngRepresentation() {
             try pngData.write(to: targetPath, options: .atomic)
+            print("File generated: \(targetPath.path(percentEncoded: false))")
         }
     }
 

@@ -6,6 +6,10 @@ build:
 clean:
 	swift package clean
 
+.PHONY: format
+format:
+	swiftformat .
+
 .PHONY: reopen
 reopen:
 	osascript -e 'tell app "Xcode" to quit' && open Package.swift

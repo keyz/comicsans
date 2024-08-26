@@ -1,5 +1,9 @@
 .PHONY: build
 build:
+	swift build -c release --disable-sandbox
+
+.PHONY: build/universal
+build/universal:
 	swift build -c release --disable-sandbox --arch arm64 --arch x86_64
 
 .PHONY: clean

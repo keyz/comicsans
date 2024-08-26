@@ -3,13 +3,13 @@
 ```
 OVERVIEW: :pink-slack-emoji:
 
-Converts text to pink comic sans slack emoji.
+Converts text to pink comic sans slack emoji. https://github.com/keyz/comicsans
 
 USAGE: comicsans <text>
        comicsans 'Write something here and get a png back'
 
 ARGUMENTS:
-  <text>                  Text to convert to pink comic sans slack emoji
+  <text>                  Text to convert
 
 OPTIONS:
   -p, --padding <padding> Padding (values: 0, 4, 8, 12, 16, 20, 24) (default: 4)

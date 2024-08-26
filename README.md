@@ -1,5 +1,32 @@
 # comicsans
 
+## Install
+
+```bash
+$ brew install keyz/tap/comicsans
+```
+
+## Usage
+
+```bash
+$ cs 'Write something here and get a png back'
+File generated: ./write-something-here-and-get-a-png-back.png
+```
+
+<img src="./.github/assets/write-something-here-and-get-a-png-back.png" alt="write-something-here-and-get-a-png-back.png" width="160"/>
+
+## How does it work?
+
+Fitting text to a container is not a trivial problem. On web this can be done with an off-screen render-measure-resize loop, like [`STRML/textFit`](https://github.com/STRML/textFit) (which powers https://keyan.io/pink).
+
+Without a browser environment we need a rendering engine with good typography support. Turns out SwiftUI's [`minimumScaleFactor`](https://developer.apple.com/documentation/swiftui/environmentvalues/minimumscalefactor) handling is pretty good at this:
+
+1. Text goes to an off-screen SwiftUI text view, with an arbitrarily large font size and high `minimumScaleFactor`
+2. SwiftUI resizes the text to fit the container
+3. [`ImageRenderer`](https://developer.apple.com/documentation/swiftui/imagerenderer) rasterizes the view into a PNG bitmap
+
+## More options
+
 ```
 OVERVIEW: cs (comic sans) for :pink-slack-emoji:
 

@@ -1,12 +1,12 @@
 # comicsans
 
 ```
-OVERVIEW: :pink-slack-emoji:
+OVERVIEW: cs (comic sans) for :pink-slack-emoji:
 
 Converts text to pink comic sans slack emoji. https://github.com/keyz/comicsans
 
-USAGE: comicsans <text>
-       comicsans 'Write something here and get a png back'
+USAGE: cs <text>
+       cs 'Write something here and get a png back'
 
 ARGUMENTS:
   <text>                  Text to convert
@@ -18,5 +18,5 @@ OPTIONS:
   -v, --vertical <vertical>
                           Vertical alignment (values: top, center, bottom; default: center)
   --version               Show the version.
-  -h, --help              Show help information.
+  --help                  Show help information.
 ```

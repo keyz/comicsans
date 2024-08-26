@@ -3,18 +3,19 @@ import ComicSans
 import SwiftUI
 
 @main
-struct comicsans: ParsableCommand {
+struct cs: ParsableCommand {
     static var configuration = CommandConfiguration(
-        commandName: "comicsans",
-        abstract: ":pink-slack-emoji:",
+        commandName: "cs",
+        abstract: "cs (comic sans) for :pink-slack-emoji:",
         usage: """
-        comicsans <text>
-        comicsans 'Write something here and get a png back'
+        cs <text>
+        cs 'Write something here and get a png back'
         """,
         discussion: """
         Converts text to pink comic sans slack emoji. https://github.com/keyz/comicsans
         """,
-        version: "1.0.0"
+        version: "1.0.0",
+        helpNames: .long
     )
 
     @Argument(help: "Text to convert")

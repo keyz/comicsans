@@ -6,6 +6,10 @@ build:
 clean:
 	swift package clean
 
+.PHONY: reopen
+reopen:
+	osascript -e 'tell app "Xcode" to quit' && open Package.swift
+
 .PHONY: test
 test:
 	swift test

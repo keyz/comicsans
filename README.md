@@ -9,8 +9,13 @@ $ brew install keyz/tap/comicsans
 ## Usage
 
 ```bash
+# pass text as an argument
 $ cs 'Write something here and get a png back'
 File generated: ./write-something-here-and-get-a-png-back.png
+
+# or pass text through a pipe
+$ echo -n 'seems legit' | cs
+File generated: ./seems-legit.png
 ```
 
 <img src="./.github/assets/write-something-here-and-get-a-png-back.png" alt="write-something-here-and-get-a-png-back.png" width="160"/>
@@ -32,8 +37,11 @@ OVERVIEW: cs (comic sans) for :pink-slack-emoji:
 
 Converts text to pink comic sans slack emoji. https://github.com/keyz/comicsans
 
-USAGE: cs <text>
-       cs 'Write something here and get a png back'
+USAGE: Pass text as an argument:
+       $ cs 'Write something here and get a png back'
+
+       Or pass text through a pipe:
+       $ echo -n 'seems legit' | cs
 
 ARGUMENTS:
   <text>                  Text to convert

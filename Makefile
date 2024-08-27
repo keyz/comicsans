@@ -10,6 +10,7 @@ build/universal:
 clean:
 	swift package clean
 	rm -rf ./.release/
+	rm -rf ./.smoke/
 
 .PHONY: format
 format:
@@ -18,6 +19,10 @@ format:
 .PHONY: reopen
 reopen:
 	osascript -e 'tell app "Xcode" to quit' && open ./Package.swift
+
+.PHONY: smoke
+smoke: build
+	./scripts/smoke.sh
 
 .PHONY: tarball
 tarball: build/universal

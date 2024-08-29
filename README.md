@@ -18,7 +18,7 @@ $ echo -n 'seems legit' | cs -
 File generated: ./seems-legit.png
 ```
 
-<img src="./.github/assets/write-something-here-and-get-a-png-back.png" alt="write-something-here-and-get-a-png-back.png" width="160"/>
+<img src="./.github/assets/write-something-here-and-get-a-png-back.png" alt="write-something-here-and-get-a-png-back.png" width="160" />
 
 ## How does it work?
 
@@ -54,6 +54,7 @@ OPTIONS:
   -v, --vertical <vertical>
                           Vertical alignment (values: top, center, bottom;
                           default: center)
+  -o, --output <output>   Output directory
   --version               Show the version.
   --help                  Show help information.
 ```

@@ -23,6 +23,15 @@ echo -n 'lorem ipsum dolor sit amet' | $BIN --padding 16 --vertical top --horizo
 
 cmp "lorem-ipsum-dolor-sit-amet.png" "lorem-ipsum-dolor-sit-amet (1).png"
 
+$BIN "dog" --output "sup"
+$BIN "dog" --output "./sup"
+$BIN "dog" --output "$(pwd)/sup" # absolute
+(cd ./sup/ && $BIN "dog" --output "../")
+
+cmp "sup/dog.png" "dog.png"
+cmp "sup/dog.png" "sup/dog (1).png"
+cmp "sup/dog.png" "sup/dog (2).png"
+
 # === errors ===
 
 expect_non_zero() {
@@ -42,6 +51,9 @@ expect_non_zero "$?" "Expected non-zero exit code for missing arg"
 
 $BIN -
 expect_non_zero "$?" "Expected non-zero exit code for missing pipe"
+
+$BIN "sup" --output "dog.png"
+expect_non_zero "$?" "Expected non-zero exit code for output being an existing file path"
 
 set -e
 

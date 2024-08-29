@@ -34,6 +34,12 @@ struct cs: ParsableCommand {
     @Option(name: [.short, .long], help: "Vertical alignment")
     var vertical: VerticalAlignmentOption = .center
 
+    @Option(name: [.short, .long], help: "Output directory", transform: URL.init(fileURLWithPath:))
+    var output: URL = .currentDirectory()
+
+    private lazy var isBeingPiped: Bool = isatty(fileno(stdin)) == 0
+    private lazy var isExpectingPipe: Bool = text == "-" && CommandLine.arguments.last == "-"
+
     mutating func validate() throws {
         guard [0, 4, 8, 12, 16, 20, 24].contains(padding) else {
             throw ValidationError("Padding must be a multiple of 4; valid range is 0 to 24.")
@@ -41,6 +47,13 @@ struct cs: ParsableCommand {
 
         if isExpectingPipe, !isBeingPiped {
             throw ValidationError("No text received. You can pass text as an argument or through a pipe.")
+        }
+
+        var isDirectory: ObjCBool = false
+        if FileManager.default.fileExists(atPath: output.path, isDirectory: &isDirectory) {
+            guard isDirectory.boolValue else {
+                throw ValidationError("Output path already exists and is a file path.")
+            }
         }
     }
 
@@ -54,35 +67,25 @@ struct cs: ParsableCommand {
             verticalAlignment: vertical
         )
 
-        let targetPath = uniqueFilePath(
+        let targetPath = try uniqueFilePath(
             basename: result.emojiName() ?? "unknown",
-            fileExtension: "png",
-            baseDirectory: .currentDirectory()
+            fileExtension: "png"
         )
 
         guard let pngData = result.pngRepresentation() else {
             throw ExitCode.failure
         }
 
+        let displayPath = (output == .currentDirectory()) ?
+            "./\(targetPath.lastPathComponent)" :
+            targetPath.path
+
         try pngData.write(to: targetPath, options: .atomic)
-        print("File generated: ./\(targetPath.lastPathComponent)")
+        print("File generated: \(displayPath)")
     }
+}
 
-    private func uniqueFilePath(basename: String, fileExtension: String, baseDirectory: URL) -> URL {
-        var attempt = 0
-        var candidate = baseDirectory.appendingPathComponent("\(basename).\(fileExtension)")
-
-        while FileManager.default.fileExists(atPath: candidate.path) {
-            attempt += 1
-            candidate = baseDirectory.appendingPathComponent("\(basename) (\(attempt)).\(fileExtension)")
-        }
-
-        return candidate
-    }
-
-    private lazy var isBeingPiped: Bool = isatty(fileno(stdin)) == 0
-    private lazy var isExpectingPipe: Bool = text == "-" && CommandLine.arguments.last == "-"
-
+extension cs {
     private mutating func parsePipeInput() throws -> String {
         assert(isExpectingPipe, "Not expecting pipe")
         assert(isBeingPiped, "No active pipe found")
@@ -94,6 +97,20 @@ struct cs: ParsableCommand {
         }
 
         return pipeInput
+    }
+
+    private func uniqueFilePath(basename: String, fileExtension: String) throws -> URL {
+        try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
+
+        var attempt = 0
+        var candidate = output.appendingPathComponent("\(basename).\(fileExtension)")
+
+        while FileManager.default.fileExists(atPath: candidate.path) {
+            attempt += 1
+            candidate = output.appendingPathComponent("\(basename) (\(attempt)).\(fileExtension)")
+        }
+
+        return candidate
     }
 }
 

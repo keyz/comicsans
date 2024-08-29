@@ -18,7 +18,7 @@ struct cs: ParsableCommand {
         discussion: """
         Converts text to pink comic sans slack emoji. https://github.com/keyz/comicsans
         """,
-        version: "0.3.0",
+        version: "0.4.0",
         helpNames: .long
     )
 

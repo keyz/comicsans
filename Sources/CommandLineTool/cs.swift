@@ -76,8 +76,12 @@ struct cs: ParsableCommand {
             throw ExitCode.failure
         }
 
+        let displayPath = (output == .currentDirectory()) ?
+            "./\(targetPath.lastPathComponent)" :
+            targetPath.path
+
         try pngData.write(to: targetPath, options: .atomic)
-        print("File generated: ./\(targetPath.lastPathComponent)") // TODO: update console output
+        print("File generated: \(displayPath)")
     }
 }
 

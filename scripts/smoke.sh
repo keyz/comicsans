@@ -14,12 +14,12 @@ cd "$SMOKE_ROOT"
 # === good ones ===
 
 $BIN "seems legit?"
-echo -n 'seems legit?' | $BIN
+echo -n 'seems legit?' | $BIN -
 
 cmp "seems-legit-question-mark.png" "seems-legit-question-mark (1).png"
 
 $BIN "lorem ipsum dolor sit amet" --padding 16 --vertical top --horizontal trailing
-echo -n 'lorem ipsum dolor sit amet' | $BIN --padding 16 --vertical top --horizontal trailing
+echo -n 'lorem ipsum dolor sit amet' | $BIN --padding 16 --vertical top --horizontal trailing -
 
 cmp "lorem-ipsum-dolor-sit-amet.png" "lorem-ipsum-dolor-sit-amet (1).png"
 
@@ -40,8 +40,8 @@ set +e
 $BIN
 expect_non_zero "$?" "Expected non-zero exit code for missing arg"
 
-echo -n "hello" | $BIN "hello"
-expect_non_zero "$?" "Expected non-zero exit code for having both arg and pipe"
+$BIN -
+expect_non_zero "$?" "Expected non-zero exit code for missing pipe"
 
 set -e
 

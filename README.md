@@ -14,7 +14,7 @@ $ cs 'Write something here and get a png back'
 File generated: ./write-something-here-and-get-a-png-back.png
 
 # or pass text through a pipe
-$ echo -n 'seems legit' | cs
+$ echo -n 'seems legit' | cs -
 File generated: ./seems-legit.png
 ```
 
@@ -41,7 +41,7 @@ USAGE: Pass text as an argument:
        $ cs 'Write something here and get a png back'
 
        Or pass text through a pipe:
-       $ echo -n 'seems legit' | cs
+       $ echo -n 'seems legit' | cs -
 
 ARGUMENTS:
   <text>                  Text to convert
@@ -49,9 +49,11 @@ ARGUMENTS:
 OPTIONS:
   -p, --padding <padding> Padding (values: 0, 4, 8, 12, 16, 20, 24) (default: 4)
   -h, --horizontal <horizontal>
-                          Horizontal alignment (values: leading, center, trailing; default: leading)
+                          Horizontal alignment (values: leading, center,
+                          trailing; default: leading)
   -v, --vertical <vertical>
-                          Vertical alignment (values: top, center, bottom; default: center)
+                          Vertical alignment (values: top, center, bottom;
+                          default: center)
   --version               Show the version.
   --help                  Show help information.
 ```

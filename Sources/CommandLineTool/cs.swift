@@ -13,7 +13,7 @@ struct cs: ParsableCommand {
         $ cs 'Write something here and get a png back'
 
         Or pass text through a pipe:
-        $ echo -n 'seems legit' | cs
+        $ echo -n 'seems legit' | cs -
         """,
         discussion: """
         Converts text to pink comic sans slack emoji. https://github.com/keyz/comicsans
@@ -23,7 +23,7 @@ struct cs: ParsableCommand {
     )
 
     @Argument(help: "Text to convert")
-    var text: String? = nil // NOTE: see `validate()` below
+    var text: String
 
     @Option(name: [.short, .long], help: "Padding (values: 0, 4, 8, 12, 16, 20, 24)")
     var padding: Int = 4
@@ -39,17 +39,13 @@ struct cs: ParsableCommand {
             throw ValidationError("Padding must be a multiple of 4; valid range is 0 to 24.")
         }
 
-        if text == nil, !isBeingPiped {
+        if isExpectingPipe, !isBeingPiped {
             throw ValidationError("No text received. You can pass text as an argument or through a pipe.")
-        }
-
-        if text != nil, isBeingPiped {
-            throw ValidationError("You can pass text either as an argument or through a pipe, but not both.")
         }
     }
 
     @MainActor mutating func run() throws {
-        let text = try text ?? parsePipeInput() // `validate()` ensures there's an active pipe when `text` is `nil`
+        let text = try isExpectingPipe ? parsePipeInput() : text
 
         let result = ComicSans(
             text,
@@ -85,8 +81,10 @@ struct cs: ParsableCommand {
     }
 
     private lazy var isBeingPiped: Bool = isatty(fileno(stdin)) == 0
+    private lazy var isExpectingPipe: Bool = text == "-" && CommandLine.arguments.last == "-"
 
     private mutating func parsePipeInput() throws -> String {
+        assert(isExpectingPipe, "Not expecting pipe")
         assert(isBeingPiped, "No active pipe found")
 
         guard let data = try? FileHandle.standardInput.readToEnd(),

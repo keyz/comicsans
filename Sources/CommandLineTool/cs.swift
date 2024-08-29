@@ -34,6 +34,9 @@ struct cs: ParsableCommand {
     @Option(name: [.short, .long], help: "Vertical alignment")
     var vertical: VerticalAlignmentOption = .center
 
+    private lazy var isBeingPiped: Bool = isatty(fileno(stdin)) == 0
+    private lazy var isExpectingPipe: Bool = text == "-" && CommandLine.arguments.last == "-"
+
     mutating func validate() throws {
         guard [0, 4, 8, 12, 16, 20, 24].contains(padding) else {
             throw ValidationError("Padding must be a multiple of 4; valid range is 0 to 24.")
@@ -67,7 +70,9 @@ struct cs: ParsableCommand {
         try pngData.write(to: targetPath, options: .atomic)
         print("File generated: ./\(targetPath.lastPathComponent)")
     }
+}
 
+extension cs {
     private func uniqueFilePath(basename: String, fileExtension: String, baseDirectory: URL) -> URL {
         var attempt = 0
         var candidate = baseDirectory.appendingPathComponent("\(basename).\(fileExtension)")
@@ -79,9 +84,6 @@ struct cs: ParsableCommand {
 
         return candidate
     }
-
-    private lazy var isBeingPiped: Bool = isatty(fileno(stdin)) == 0
-    private lazy var isExpectingPipe: Bool = text == "-" && CommandLine.arguments.last == "-"
 
     private mutating func parsePipeInput() throws -> String {
         assert(isExpectingPipe, "Not expecting pipe")

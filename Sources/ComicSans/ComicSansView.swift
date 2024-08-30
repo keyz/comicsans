@@ -45,7 +45,7 @@ public struct ComicSansView: View {
 
 #if DEBUG
     private struct ContainerView: View {
-        let text: String
+        @State var text: String
         @State var padding: Int = 4
         @State var horizontalAlignment: HorizontalAlignmentOption = .leading
         @State var verticalAlignment: VerticalAlignmentOption = .center
@@ -53,6 +53,10 @@ public struct ComicSansView: View {
 
         var controlPanel: some View {
             VStack {
+                TextField("Text", text: $text, axis: .vertical)
+                    .lineLimit(2 ... 5)
+                    .focusable(false)
+
                 Slider(value: $padding.double, in: 0 ... 24, step: 4) {
                     Text("Padding: \(padding, specifier: "%02d")").monospacedDigit()
                 } minimumValueLabel: {
@@ -126,5 +130,9 @@ public struct ComicSansView: View {
 
     #Preview("left padding 0") {
         ContainerView(text: "jason", padding: 0)
+    }
+
+    #Preview("tall character") {
+        ContainerView(text: "Ö")
     }
 #endif

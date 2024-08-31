@@ -28,7 +28,7 @@ public struct ComicSansView: View {
             }
 
             Text(text)
-                .font(.custom("Comic Sans MS", size: 256))
+                .font(.comicSans(size: 256))
                 .foregroundStyle(Color(red: 1, green: 0, blue: 1))
                 .minimumScaleFactor(0.001)
                 .multilineTextAlignment(horizontalAlignment.textAlignment)

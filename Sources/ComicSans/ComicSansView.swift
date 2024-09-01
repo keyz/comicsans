@@ -120,19 +120,27 @@ public struct ComicSansView: View {
         ContainerView(text: "Write something here and click generate")
     }
 
-    #Preview("lfg") {
+    #Preview("\"lfg\"") {
         ContainerView(text: "lfg")
     }
 
-    #Preview("bottom padding 0") {
+    #Preview("Bottom padding 0") {
         ContainerView(text: "j", padding: 0, verticalAlignment: .bottom)
     }
 
-    #Preview("left padding 0") {
+    #Preview("Left padding 0") {
         ContainerView(text: "jason", padding: 0)
     }
 
-    #Preview("tall character") {
+    #Preview("Tall character") {
         ContainerView(text: "Ö")
+    }
+
+    #Preview("Chinese") {
+        ContainerView(text: "好的")
+    }
+
+    #Preview("Mixed conent") {
+        ContainerView(text: "ok 好")
     }
 #endif

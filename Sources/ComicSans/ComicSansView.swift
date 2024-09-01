@@ -5,6 +5,7 @@ public struct ComicSansView: View {
     let padding: Int
     let horizontalAlignment: HorizontalAlignmentOption
     let verticalAlignment: VerticalAlignmentOption
+    let lineHeightMultiple: CGFloat
     let debug: Bool
 
     public init(
@@ -12,12 +13,14 @@ public struct ComicSansView: View {
         padding: Int,
         horizontalAlignment: HorizontalAlignmentOption,
         verticalAlignment: VerticalAlignmentOption,
-        debug: Bool
+        lineHeightMultiple: CGFloat = 1,
+        debug: Bool = false
     ) {
         self.text = text
         self.padding = padding
         self.horizontalAlignment = horizontalAlignment
         self.verticalAlignment = verticalAlignment
+        self.lineHeightMultiple = lineHeightMultiple
         self.debug = debug
     }
 
@@ -28,6 +31,7 @@ public struct ComicSansView: View {
             }
 
             Text(text)
+                .environment(\._lineHeightMultiple, lineHeightMultiple)
                 .font(.comicSans(size: 256))
                 .foregroundStyle(Color(red: 1, green: 0, blue: 1))
                 .minimumScaleFactor(0.001)
@@ -49,6 +53,7 @@ public struct ComicSansView: View {
         @State var padding: Int = 4
         @State var horizontalAlignment: HorizontalAlignmentOption = .leading
         @State var verticalAlignment: VerticalAlignmentOption = .center
+        @State var lineHeightMultiple: CGFloat = 1
         @State var debug: Bool = false
 
         var controlPanel: some View {
@@ -79,6 +84,14 @@ public struct ComicSansView: View {
                 }
                 .pickerStyle(.segmented)
 
+                Slider(value: $lineHeightMultiple, in: 0.86 ... 1.0, step: 0.01) {
+                    Text("lineHeightMultiple: \(lineHeightMultiple, specifier: "%.02f")").monospacedDigit()
+                } minimumValueLabel: {
+                    Text("0.86")
+                } maximumValueLabel: {
+                    Text("1.00")
+                }
+
                 Toggle(isOn: $debug) {
                     Text("Debug")
                 }
@@ -94,6 +107,7 @@ public struct ComicSansView: View {
                             padding: padding,
                             horizontalAlignment: horizontalAlignment,
                             verticalAlignment: verticalAlignment,
+                            lineHeightMultiple: lineHeightMultiple,
                             debug: debug
                         )
                     }

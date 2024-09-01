@@ -16,8 +16,7 @@ public struct ComicSans {
             text: text,
             padding: padding,
             horizontalAlignment: horizontalAlignment,
-            verticalAlignment: verticalAlignment,
-            debug: false
+            verticalAlignment: verticalAlignment
         )
     }
 

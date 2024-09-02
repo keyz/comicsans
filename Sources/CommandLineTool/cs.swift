@@ -4,7 +4,7 @@ import Darwin
 import SwiftUI
 
 @main
-struct cs: ParsableCommand {
+struct CommandLineTool: ParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "cs",
         abstract: "cs (comic sans) for :pink-slack-emoji:",
@@ -85,7 +85,7 @@ struct cs: ParsableCommand {
     }
 }
 
-extension cs {
+extension CommandLineTool {
     private mutating func parsePipeInput() throws -> String {
         assert(isExpectingPipe, "Not expecting pipe")
         assert(isBeingPiped, "No active pipe found")

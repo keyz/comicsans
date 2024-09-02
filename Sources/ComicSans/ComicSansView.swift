@@ -75,7 +75,7 @@ public struct ComicSansView: View {
 }
 
 enum Constants {
-    static let lineHeightMultiple: CGFloat = 1
+    static let lineHeightMultiple: CGFloat = 0.95
 }
 
 #if DEBUG
@@ -167,8 +167,8 @@ enum Constants {
 
     #Preview("Zero-height spacer") {
         ContainerView(
-            text: "Write something here and click generate. This will be longer than usual. I need a few more lines of text. And a bit more. How about now? One more line? And one more?",
-            padding: 4,
+            text: "Write something here and click generate. One more.",
+            padding: 8,
             horizontalAlignment: .leading,
             verticalAlignment: .center,
             debug: true

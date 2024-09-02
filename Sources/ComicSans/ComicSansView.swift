@@ -27,7 +27,12 @@ public struct ComicSansView: View {
     public var body: some View {
         VStack {
             if verticalAlignment == .bottom {
-                Spacer()
+                if debug, #available(macOS 14.0, *) {
+                    Spacer()
+                        .background(Color.yellow.opacity(0.9).containerRelativeFrame(.horizontal))
+                } else {
+                    Spacer()
+                }
             }
 
             Text(text)
@@ -36,11 +41,16 @@ public struct ComicSansView: View {
                 .foregroundStyle(Color(red: 1, green: 0, blue: 1))
                 .minimumScaleFactor(0.001)
                 .multilineTextAlignment(horizontalAlignment.textAlignment)
-                .border(Color.blue, width: debug ? 1 : 0)
+                .border(Color.blue.opacity(0.9), width: debug ? 1 : 0)
                 .padding(CGFloat(padding)) // NOTE: use letter "j" to test the horizontal spacing
 
             if verticalAlignment == .top {
-                Spacer()
+                if debug, #available(macOS 14.0, *) {
+                    Spacer()
+                        .background(Color.yellow.opacity(0.9).containerRelativeFrame(.horizontal))
+                } else {
+                    Spacer()
+                }
             }
         }
         .frame(width: 320, height: 320)

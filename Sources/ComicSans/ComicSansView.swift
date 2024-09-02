@@ -5,6 +5,7 @@ public struct ComicSansView: View {
     let padding: Int
     let horizontalAlignment: HorizontalAlignmentOption
     let verticalAlignment: VerticalAlignmentOption
+
     let lineHeightMultiple: CGFloat
     let debug: Bool
 
@@ -12,14 +13,30 @@ public struct ComicSansView: View {
         text: String,
         padding: Int,
         horizontalAlignment: HorizontalAlignmentOption,
-        verticalAlignment: VerticalAlignmentOption,
-        lineHeightMultiple: CGFloat = 1,
-        debug: Bool = false
+        verticalAlignment: VerticalAlignmentOption
     ) {
         self.text = text
         self.padding = padding
         self.horizontalAlignment = horizontalAlignment
         self.verticalAlignment = verticalAlignment
+
+        lineHeightMultiple = Constants.lineHeightMultiple
+        debug = false
+    }
+
+    fileprivate init(
+        text: String,
+        padding: Int,
+        horizontalAlignment: HorizontalAlignmentOption,
+        verticalAlignment: VerticalAlignmentOption,
+        lineHeightMultiple: CGFloat,
+        debug: Bool
+    ) {
+        self.text = text
+        self.padding = padding
+        self.horizontalAlignment = horizontalAlignment
+        self.verticalAlignment = verticalAlignment
+
         self.lineHeightMultiple = lineHeightMultiple
         self.debug = debug
     }
@@ -57,13 +74,17 @@ public struct ComicSansView: View {
     }
 }
 
+enum Constants {
+    static let lineHeightMultiple: CGFloat = 1
+}
+
 #if DEBUG
     private struct ContainerView: View {
         @State var text: String
         @State var padding: Int = 4
         @State var horizontalAlignment: HorizontalAlignmentOption = .leading
         @State var verticalAlignment: VerticalAlignmentOption = .center
-        @State var lineHeightMultiple: CGFloat = 1
+        @State var lineHeightMultiple: CGFloat = Constants.lineHeightMultiple
         @State var debug: Bool = false
 
         var controlPanel: some View {

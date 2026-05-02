@@ -1,23 +1,31 @@
 import Foundation
 import SwiftUI
 
-public struct ComicSans {
+public struct ComicSans: Sendable {
     let text: String
-    public let view: ComicSansView
+    let padding: Int
+    let horizontalAlignment: HorizontalAlignmentOption
+    let verticalAlignment: VerticalAlignmentOption
+
+    @MainActor public var view: ComicSansView {
+        ComicSansView(
+            text: text,
+            padding: padding,
+            horizontalAlignment: horizontalAlignment,
+            verticalAlignment: verticalAlignment,
+        )
+    }
 
     public init(
         _ text: String,
         padding: Int = 4,
         horizontalAlignment: HorizontalAlignmentOption = .leading,
-        verticalAlignment: VerticalAlignmentOption = .center
+        verticalAlignment: VerticalAlignmentOption = .center,
     ) {
         self.text = text
-        view = ComicSansView(
-            text: text,
-            padding: padding,
-            horizontalAlignment: horizontalAlignment,
-            verticalAlignment: verticalAlignment
-        )
+        self.padding = padding
+        self.horizontalAlignment = horizontalAlignment
+        self.verticalAlignment = verticalAlignment
     }
 
     public func emojiName() -> String? {

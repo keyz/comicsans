@@ -4,8 +4,8 @@ import Darwin
 import SwiftUI
 
 @main
-struct CommandLineTool: ParsableCommand {
-    static var configuration = CommandConfiguration(
+struct CommandLineTool: @MainActor ParsableCommand {
+    static let configuration = CommandConfiguration(
         commandName: "cs",
         abstract: "cs (comic sans) for :pink-slack-emoji:",
         usage: """
@@ -19,7 +19,7 @@ struct CommandLineTool: ParsableCommand {
         Converts text to pink comic sans slack emoji. https://github.com/keyz/comicsans
         """,
         version: "0.5.0",
-        helpNames: .long
+        helpNames: .long,
     )
 
     @Argument(help: "Text to convert")
@@ -38,7 +38,7 @@ struct CommandLineTool: ParsableCommand {
     var output: URL = .currentDirectory()
 
     private lazy var isBeingPiped: Bool = isatty(fileno(stdin)) == 0
-    private lazy var isExpectingPipe: Bool = text == "-" && CommandLine.arguments.last == "-"
+    private lazy var isExpectingPipe: Bool = text == "-"
 
     mutating func validate() throws {
         guard [0, 4, 8, 12, 16, 20, 24].contains(padding) else {
@@ -64,12 +64,12 @@ struct CommandLineTool: ParsableCommand {
             text,
             padding: padding,
             horizontalAlignment: horizontal,
-            verticalAlignment: vertical
+            verticalAlignment: vertical,
         )
 
         let targetPath = try uniqueFilePath(
             basename: result.emojiName() ?? "unknown",
-            fileExtension: "png"
+            fileExtension: "png",
         )
 
         guard let pngData = result.pngRepresentation() else {

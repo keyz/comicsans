@@ -38,7 +38,7 @@ struct CommandLineTool: ParsableCommand {
     var output: URL = .currentDirectory()
 
     private lazy var isBeingPiped: Bool = isatty(fileno(stdin)) == 0
-    private lazy var isExpectingPipe: Bool = text == "-" && CommandLine.arguments.last == "-"
+    private lazy var isExpectingPipe: Bool = text == "-"
 
     mutating func validate() throws {
         guard [0, 4, 8, 12, 16, 20, 24].contains(padding) else {

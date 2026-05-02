@@ -13,7 +13,7 @@ public struct ComicSansView: View {
         text: String,
         padding: Int,
         horizontalAlignment: HorizontalAlignmentOption,
-        verticalAlignment: VerticalAlignmentOption
+        verticalAlignment: VerticalAlignmentOption,
     ) {
         self.text = text
         self.padding = padding
@@ -30,7 +30,7 @@ public struct ComicSansView: View {
         horizontalAlignment: HorizontalAlignmentOption,
         verticalAlignment: VerticalAlignmentOption,
         lineHeightMultiple: CGFloat,
-        debug: Bool
+        debug: Bool,
     ) {
         self.text = text
         self.padding = padding
@@ -139,7 +139,7 @@ enum Constants {
                             horizontalAlignment: horizontalAlignment,
                             verticalAlignment: verticalAlignment,
                             lineHeightMultiple: lineHeightMultiple,
-                            debug: debug
+                            debug: debug,
                         )
                     }
                     .padding(1)
@@ -171,7 +171,7 @@ enum Constants {
             padding: 8,
             horizontalAlignment: .leading,
             verticalAlignment: .center,
-            debug: true
+            debug: true,
         )
     }
 

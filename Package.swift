@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.3
 
 import PackageDescription
 
@@ -17,7 +17,7 @@ let package = Package(
     targets: [
         .target(
             name: "ComicSans",
-            path: "Sources/ComicSans"
+            path: "Sources/ComicSans",
         ),
         .executableTarget(
             name: "CommandLineTool",
@@ -25,14 +25,14 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "ComicSans",
             ],
-            path: "Sources/CommandLineTool"
+            path: "Sources/CommandLineTool",
         ),
         .testTarget(
             name: "ComicSansTests",
             dependencies: [
                 "ComicSans",
             ],
-            path: "Tests/ComicSansTests"
+            path: "Tests/ComicSansTests",
         ),
-    ]
+    ],
 )

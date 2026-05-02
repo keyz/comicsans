@@ -1,6 +1,6 @@
 import SwiftUI
 
-public enum HorizontalAlignmentOption: String, CaseIterable {
+public enum HorizontalAlignmentOption: String, CaseIterable, Sendable {
     case leading
     case center
     case trailing

@@ -17,7 +17,7 @@ let package = Package(
     targets: [
         .target(
             name: "ComicSans",
-            path: "Sources/Comicsans"
+            path: "Sources/ComicSans"
         ),
         .executableTarget(
             name: "CommandLineTool",
